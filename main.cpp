@@ -10,12 +10,12 @@ string add(string x, string y){
 
     for (int i = n-1 ; i >= 0 ; i--)
     {
-        char xBit = x[i];
-        char yBit = y[i];
+        int xBit = x[i] - '0';
+        int yBit = y[i] - '0';
 
-        int sum = xBit ^ yBit ^ carry;
+        int sum = (xBit ^ yBit ^ carry);
 
-        result.insert(result.begin(), (char)sum);
+        result.insert(result.begin(), (sum + '0'));
 
         carry = (xBit&yBit) | (xBit&carry) | (yBit&carry);
     }
