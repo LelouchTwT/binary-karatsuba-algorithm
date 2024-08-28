@@ -1,6 +1,32 @@
 #include <iostream>
 using namespace std;
 
+string add(string x, string y){
+    string result;
+
+    int n = x.size();
+
+    int carry = 0;
+
+    for (int i = n-1 ; i >= 0 ; i--)
+    {
+        char xBit = x[i];
+        char yBit = y[i];
+
+        int sum = xBit ^ yBit ^ carry;
+
+        result.insert(result.begin(), (char)sum);
+
+        carry = (xBit&yBit) | (xBit&carry) | (yBit&carry);
+    }
+
+    if (carry) {
+        result.insert(result.begin(), '1');
+    }
+
+    return result;
+}
+
 int makeEqualLength(string &str1, string &str2)
 {
     int len1 = str1.size();
@@ -21,6 +47,7 @@ int makeEqualLength(string &str1, string &str2)
 
 string karatsuba(string x, string y){
     int n = makeEqualLength(x, y);
+    cout << add(x,y) <<endl;
 
     if (n == 0) return "0";
 
@@ -33,7 +60,7 @@ string karatsuba(string x, string y){
     string yL = y.substr(0, fh);
     string yR = y.substr(fh, sh);
 
-    cout << xL << " " << xR << " " << yL << " " << yR << endl;
+    //cout << xL << " " << xR << " " << yL << " " << yR << endl;
     return "1";
 }
 
