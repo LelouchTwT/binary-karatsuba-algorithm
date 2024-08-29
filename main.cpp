@@ -1,23 +1,22 @@
 #include <iostream>
+#include <valarray>
+
 using namespace std;
 
-string add(string x, string y){
+string add(string x, string y) {
     string result;
-
-    int n = x.size();
-
+    int n = (int) x.size();
     int carry = 0;
 
-    for (int i = n-1 ; i >= 0 ; i--)
-    {
+    for (int i = n - 1; i >= 0; i--) {
         int xBit = x[i] - '0';
         int yBit = y[i] - '0';
 
         int sum = (xBit ^ yBit ^ carry);
 
-        result.insert(result.begin(), (sum + '0'));
+        result.insert(result.begin(), (char) (sum + '0'));
 
-        carry = (xBit&yBit) | (xBit&carry) | (yBit&carry);
+        carry = (xBit & yBit) | (xBit & carry) | (yBit & carry);
     }
 
     if (carry) {
@@ -27,41 +26,34 @@ string add(string x, string y){
     return result;
 }
 
-int makeEqualLength(string &str1, string &str2)
-{
-    int len1 = str1.size();
-    int len2 = str2.size();
-    if (len1 < len2)
-    {
-        for (int i = 0 ; i < len2 - len1 ; i++)
-            str1 = '0' + str1;
-        return len2;
-    }
-    else if (len1 > len2)
-    {
-        for (int i = 0 ; i < len1 - len2 ; i++)
-            str2 = '0' + str2;
-    }
-    return len1; // If len1 >= len2
+int makeEqualLength(string &x, string &y) {
+    int n = (int) max(x.size(), y.size());
+
+    while (x.size() < n) x.insert(x.begin(), '0');
+    while (y.size() < n) y.insert(y.begin(), '0');
+
+    return n;
 }
 
-string karatsuba(string x, string y){
+string karatsuba(string x, string y) {
     int n = makeEqualLength(x, y);
-    cout << add(x,y) <<endl;
 
     if (n == 0) return "0";
 
-    int fh = n/2;
-    int sh = (n-fh);
+    int fh = n / 2;
+    int sh = (n - fh);
 
-    string xL = x.substr(0, fh);
     string xR = x.substr(fh, sh);
+    string xL = x.substr(0, fh);
 
-    string yL = y.substr(0, fh);
     string yR = y.substr(fh, sh);
+    string yL = y.substr(0, fh);
 
-    //cout << xL << " " << xR << " " << yL << " " << yR << endl;
-    return "1";
+    string p1 = karatsuba(xR,yR);
+    string p2 = karatsuba(xL,yL);
+    string p3 = karatsuba(add(xR, xL), add(yR,yL));
+
+    return p1;
 }
 
 int main(int argc, char *argv[]) {

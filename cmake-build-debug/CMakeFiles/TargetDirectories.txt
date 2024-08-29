@@ -1,0 +1,3 @@
+C:/Users/joao.antoniazi/CLionProjects/binary-karatsuba-algorithm/cmake-build-debug/CMakeFiles/binary_karatsuba_algorithm.dir
+C:/Users/joao.antoniazi/CLionProjects/binary-karatsuba-algorithm/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/joao.antoniazi/CLionProjects/binary-karatsuba-algorithm/cmake-build-debug/CMakeFiles/rebuild_cache.dir
